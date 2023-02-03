@@ -30,6 +30,7 @@ export const useDraw = (
     canvasRef.current?.addEventListener("mousemove", handler);
 
     //cleanup
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => canvasRef.current?.addEventListener("mousemove", handler);
   }, []);
 
