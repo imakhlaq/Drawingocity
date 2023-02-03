@@ -1,6 +1,11 @@
-const page = () => {
+"use client";
+
+import { useDraw } from "../hooks/useDraw";
+
+const Page = () => {
+  const { canvasRef } = useDraw();
   return (
-    <div>
+    <div className="w-screen h-screen bg-white flex justify-center items-center">
       <canvas
         width={750}
         height={750}
@@ -9,4 +14,4 @@ const page = () => {
     </div>
   );
 };
-export default page;
+export default Page;
