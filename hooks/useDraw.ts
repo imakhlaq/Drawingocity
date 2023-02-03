@@ -1,11 +1,16 @@
 import { useEffect, useRef } from "react";
 
-export const useDraw = () => {
+export const useDraw = (
+  onDraw: ({ ctx, currentPoint, prevPoint }: Draw) => void
+) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     //handler
     const handler = (event: MouseEvent) => {
-      const currentValue = computePointsInCanvas(event);
+      const currentPoint = computePointsInCanvas(event);
+
+      const ctx = canvasRef.current?.getContext("2d");
+      if (!ctx || !currentPoint) return;
     };
 
     //computing poits
@@ -25,7 +30,6 @@ export const useDraw = () => {
     canvasRef.current?.addEventListener("mousemove", handler);
 
     //cleanup
-
     return () => canvasRef.current?.addEventListener("mousemove", handler);
   }, []);
 
