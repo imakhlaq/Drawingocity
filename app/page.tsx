@@ -11,6 +11,7 @@ const Page = () => {
   const [showPallet, setShowPallet] = useState(false);
 
   const drawLine = ({ prevPoint, currentPoint, ctx }: Draw) => {
+    setShowPallet(false);
     const { x: currX, y: currY } = currentPoint;
 
     const lineColor = color;
@@ -41,7 +42,7 @@ const Page = () => {
     document.documentElement.clientHeight ||
     document.body.clientHeight;
 
-  const { canvasRef, onMouseDown, clear } = useDraw(drawLine, setShowPallet);
+  const { canvasRef, onMouseDown, clear } = useDraw(drawLine);
 
   return (
     <div className="space-y-10 flex flex-col justify-center">

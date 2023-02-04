@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 
 export const useDraw = (
-  onDraw: ({ ctx, currentPoint, prevPoint }: Draw) => void,
-  setShowPallet: Dispatch<SetStateAction<boolean>>
+  onDraw: ({ ctx, currentPoint, prevPoint }: Draw) => void
 ) => {
   //for checking if mouse is down
   const [mouseDown, setMouseDown] = useState(false);
@@ -51,7 +50,7 @@ export const useDraw = (
 
     const mouseUpHandler = () => {
       setMouseDown(false);
-      setShowPallet(false);
+
       prevPoint.current = null;
     };
 
@@ -65,7 +64,7 @@ export const useDraw = (
       canvasRef.current?.removeEventListener("mousemove", handler);
       window.removeEventListener("mouseup", mouseUpHandler);
     };
-  }, [onDraw, mouseDown, setShowPallet]);
+  }, [onDraw, mouseDown]);
 
   return { canvasRef, onMouseDown, clear };
 };
