@@ -5,11 +5,17 @@ type Props = {
   setColor: Dispatch<SetStateAction<string>>;
   color: string;
   clear: () => void;
+  setShowPallet: Dispatch<SetStateAction<boolean>>;
+  showPallet: boolean;
 };
 
-const Header = ({ setColor, color, clear }: Props) => {
-  const [showPallet, setShowPallet] = useState(false);
-
+const Header = ({
+  setColor,
+  color,
+  clear,
+  showPallet,
+  setShowPallet,
+}: Props) => {
   return (
     <div className="bg-[#20262E] px-3 py-4 flex gap-10 justify-between select-none">
       <div>
