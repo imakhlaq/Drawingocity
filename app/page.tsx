@@ -1,8 +1,9 @@
 "use client";
 
 import { useDraw } from "../hooks/useDraw";
-import { ChromePicker } from "react-color";
+
 import { useState } from "react";
+import Header from "./header";
 
 const Page = () => {
   const [color, setColor] = useState<string>("#000");
@@ -31,23 +32,14 @@ const Page = () => {
   const { canvasRef, onMouseDown, clear } = useDraw(drawLine);
 
   return (
-    <div className="w-screen h-screen bg-white flex flex-col justify-center items-center">
-      <div>
-        <ChromePicker color={color} onChange={(e) => setColor(e.hex)} />
-        <button
-          type="button"
-          onClick={clear}
-          className="p-2 rounded-lg border border-black w-full"
-        >
-          Clear
-        </button>
-      </div>
+    <div className="space-y-20">
+      <Header color={color} setColor={setColor} clear={clear} />
       <canvas
         onMouseDown={onMouseDown}
         ref={canvasRef}
         width={1000}
         height={1000}
-        className="border border-black rounded-md"
+        className="border border-black rounded-md bg-[#F9F5E7]"
       />
     </div>
   );
