@@ -14,6 +14,14 @@ const Page = () => {
     ctx.beginPath();
     ctx.lineWidth = lineWidth;
     ctx.strokeStyle = lineColor;
+    ctx.moveTo(startingPoint.x, startingPoint.y);
+    ctx.lineTo(currX, currY);
+    ctx.stroke();
+
+    ctx.fillStyle = lineColor;
+    ctx.beginPath();
+    ctx.arc(startingPoint.x, startingPoint.y, 2, 0, 2 * Math.PI);
+    ctx.fill();
   };
 
   const { canvasRef } = useDraw(drawLine);
@@ -21,6 +29,7 @@ const Page = () => {
   return (
     <div className="w-screen h-screen bg-white flex justify-center items-center">
       <canvas
+        ref={canvasRef}
         width={750}
         height={750}
         className="border border-black rounded-md"
