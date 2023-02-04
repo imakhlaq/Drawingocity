@@ -59,8 +59,8 @@ export const useDraw = (
     window.addEventListener("mouseup", mouseUpHandler);
 
     //cleanup
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       canvasRef.current?.removeEventListener("mousemove", handler);
       window.removeEventListener("mouseup", mouseUpHandler);
     };
