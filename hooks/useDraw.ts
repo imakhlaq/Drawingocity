@@ -1,16 +1,27 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const useDraw = (
   onDraw: ({ ctx, currentPoint, prevPoint }: Draw) => void
 ) => {
+  //for checking if mouse is down
+  const [mouseDown, setMouseDown] = useState(false);
+  const prevPoint = useRef<null | Point>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const onMouseDown = () => setMouseDown(true);
+
   useEffect(() => {
     //handler
     const handler = (event: MouseEvent) => {
+      if (!mouseDown) return;
+
       const currentPoint = computePointsInCanvas(event);
 
       const ctx = canvasRef.current?.getContext("2d");
       if (!ctx || !currentPoint) return;
+
+      onDraw({ ctx, currentPoint, prevPoint: prevPoint.current });
+      prevPoint.current = currentPoint;
     };
 
     //computing poits
@@ -20,19 +31,28 @@ export const useDraw = (
       if (!canvas) return;
 
       const rect = canvas.getBoundingClientRect();
-      const y = event.clientX - rect.left;
-      const x = event.clientY - rect.top;
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
 
       return { x, y };
     };
 
+    const mouseUpHandler = () => {
+      setMouseDown(false);
+      prevPoint.current = null;
+    };
+
     //add event listner
     canvasRef.current?.addEventListener("mousemove", handler);
+    window.addEventListener("mouseup", mouseUpHandler);
 
     //cleanup
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    return () => canvasRef.current?.addEventListener("mousemove", handler);
-  }, []);
+    return () => {
+      canvasRef.current?.removeEventListener("mousemove", handler);
+      window.removeEventListener("mouseup", mouseUpHandler);
+    };
+  }, [onDraw, mouseDown]);
 
-  return { canvasRef };
+  return { canvasRef, onMouseDown };
 };
