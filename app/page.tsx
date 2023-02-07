@@ -28,20 +28,15 @@ const Page = () => {
     ctx.fill();
   };
 
-  let width = 0;
-  let height = 0;
+  const width =
+    window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth;
 
-  if (typeof window === "object") {
-    width =
-      window.innerWidth ||
-      document.documentElement.clientWidth ||
-      document.body.clientWidth;
-
-    height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight;
-  }
+  const height =
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight;
 
   const { canvasRef, onMouseDown, clear } = useDraw(drawLine);
 
