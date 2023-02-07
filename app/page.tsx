@@ -1,12 +1,14 @@
 "use client";
 
 import { useDraw } from "../hooks/useDraw";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./header";
 
 const Page = () => {
   const [color, setColor] = useState<string>("#000");
   const [showPallet, setShowPallet] = useState(false);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
 
   const drawLine = ({ prevPoint, currentPoint, ctx }: Draw) => {
     setShowPallet(false);
@@ -28,15 +30,19 @@ const Page = () => {
     ctx.fill();
   };
 
-  const width =
-    window.innerWidth ||
-    document.documentElement.clientWidth ||
-    document.body.clientWidth;
+  useEffect(() => {
+    setWidth(
+      window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth
+    );
 
-  const height =
-    window.innerHeight ||
-    document.documentElement.clientHeight ||
-    document.body.clientHeight;
+    setHeight(
+      window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight
+    );
+  }, []);
 
   const { canvasRef, onMouseDown, clear } = useDraw(drawLine);
 
