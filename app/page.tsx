@@ -33,7 +33,7 @@ const Page = () => {
   let width;
   let height;
 
-  if (typeof window !== "undefined") {
+  if (typeof window === "object") {
     width =
       window.innerWidth ||
       document.documentElement.clientWidth ||
