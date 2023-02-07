@@ -13,9 +13,7 @@ const Page = () => {
   const drawLine = ({ prevPoint, currentPoint, ctx }: Draw) => {
     setShowPallet(false);
     const { x: currX, y: currY } = currentPoint;
-
     const lineColor = color;
-
     const lineWidth = 5;
 
     let startingPoint = prevPoint ?? currentPoint;
@@ -32,15 +30,20 @@ const Page = () => {
     ctx.fill();
   };
 
-  const width =
-    window.innerWidth ||
-    document.documentElement.clientWidth ||
-    document.body.clientWidth;
+  let width;
+  let height;
 
-  const height =
-    window.innerHeight ||
-    document.documentElement.clientHeight ||
-    document.body.clientHeight;
+  if (typeof window !== "undefined") {
+    width =
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth;
+
+    height =
+      window.innerHeight ||
+      document.documentElement.clientHeight ||
+      document.body.clientHeight;
+  }
 
   const { canvasRef, onMouseDown, clear } = useDraw(drawLine);
 
@@ -56,8 +59,8 @@ const Page = () => {
       <canvas
         onMouseDown={onMouseDown}
         ref={canvasRef}
-        width={width - 10}
-        height={height - 130}
+        width={(width ?? 1000) - 10}
+        height={(height ?? 1000) - 130}
         className="border border-black rounded-md bg-[#F9F5E7]"
       />
     </div>
