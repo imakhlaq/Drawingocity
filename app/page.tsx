@@ -28,8 +28,8 @@ const Page = () => {
     ctx.fill();
   };
 
-  let width: number;
-  let height: number;
+  let width = 0;
+  let height = 0;
 
   if (typeof window === "object") {
     width =
@@ -41,9 +41,6 @@ const Page = () => {
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight;
-  } else {
-    width = 0;
-    height = 0;
   }
 
   const { canvasRef, onMouseDown, clear } = useDraw(drawLine);
