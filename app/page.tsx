@@ -60,7 +60,7 @@ const Page = () => {
         ref={canvasRef}
         width={width - 10}
         height={height - 130}
-        className="border border-black rounded-md bg-[#F9F5E7]"
+        className="border border-black rounded-md bg-[#F9F5E7] cursor-crosshair"
       />
     </div>
   );
